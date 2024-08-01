@@ -70,5 +70,34 @@ class Deck:
         return self.cards.pop()
     def is_empty(self):
         return self.cards == []
+    def deal(self, hands, num_cards=999):
+        num_hands = len(hands)
+        for i in range(num_cards):
+            if self.is_empty():
+                break # Break if out of cards
+            card = self.pop() # Take the top card
+            hand = hands[i % num_hands] # Whose turn is next?
+            hand.add(card)
 desk = Deck()
 print(desk)
+
+class Hand(Deck):
+    def __init__(self, name=""):
+        self.cards = []
+        self.name = name
+    def __str__(self):
+        s = "Hand " + self.name
+        if self.is_empty():
+            s += " is empty\n"
+        else:
+            s += " contains\n"
+            return s + Deck.__str__(self)
+    def add(self, card):
+        self.cards.append(card)
+
+
+deck = Deck()
+deck.shuffle()
+hand = Hand("frank")
+deck.deal([hand], 5)
+print(hand)
