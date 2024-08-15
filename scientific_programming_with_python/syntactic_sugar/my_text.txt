@@ -1,0 +1,10 @@
+The with statement creates a block of code that is executed within a certain context.
+A context is defined by a context manager that provides a pair of methods describing
+how to enter and leave the context. User-defined contexts are generally used only in
+advanced code and can be quite complex, but a common basic example of a built-in
+context manager involves file input / output. Here, the context is entered by opening
+the file. Within the context block, the file is read from or written to, and finally the file
+is closed on exiting the context. The file object is a context manager that is returned
+by the open() method. It defines an exit method which simply closes the file (if it was
+opened successfully), so that this does not need to be done explicitly. To open a file
+within a context, use
