@@ -26,4 +26,9 @@ class CurrentAccount(BankAccount):
 
 
 my_current = CurrentAccount('Alison ', 78300991, 20., 200.)
-my_current.withdraw(220)
+print(my_current.withdraw(220))
+
+my_current.deposit(750)
+print(my_current.check_balance())
+
+print(my_current.withdraw(220))
