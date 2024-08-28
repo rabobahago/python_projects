@@ -35,19 +35,93 @@ def isWinner(bo, le):
         We use "bo" instead of "board" and "le" instead of "letter" so we don't have to type as much.
     """
     return (bo[7] == le and bo[8] == le and bo[9] == le) or (bo[4] == le and bo[5] == le and bo[6] == le) or (bo[1] == le and bo[2] == le and bo[3] == le) or (bo[7] == le and bo[4] == le and bo[1] == le) or (bo[8] == le and bo[5] == le and bo[2] == le) or (bo[9] == le and bo[6] == le and bo[3] == le) or (bo[1] == le and bo[5] == le and bo[9] == le) or (bo[3] == le and bo[5] == le and bo[7] == le)
+print('Check is winner function logic')
 board = [' ', 'X', ' ', 'O', ' ', 'X', ' ', 'O', ' ', 'X'] # 1, 7, 9
+drawBoard(board)
 print(isWinner(board, 'X'))
 board = [' ', 'X', ' ', 'O', ' ', 'O', ' ', 'O', ' ', 'X'] # 3, 5, 7
+drawBoard(board)
 print(isWinner(board, 'O'))
 board = [' ', 'X', 'X', 'X', 'O', ' ', ' ', 'O', ' ', 'X'] # 1, 2, 3
+drawBoard(board)
 print(isWinner(board, 'X'))
 board = [' ', 'X', ' ', 'O', 'O', 'O', 'O', 'X', ' ', 'X'] # 4, 5, 6
+drawBoard(board)
 print(isWinner(board, 'O'))
 board = [' ', 'X', ' ', 'O', ' ', 'X', ' ', 'X', 'X ', 'X'] # 7, 8, 9
+drawBoard(board)
 print(isWinner(board, 'X'))
 board = [' ', 'X', ' ', 'O', 'X', 'O', ' ', 'X', ' ', 'X'] # 1, 4, 7
+drawBoard(board)
 print(isWinner(board, 'X'))
 board = [' ', 'X', 'O', 'X', ' ', 'O', ' ', 'O', 'O', 'X'] # 2, 5, 8
+drawBoard(board)
 print(isWinner(board, 'O'))
 board = [' ', 'X', ' ', 'X', ' ', 'O', 'X', 'O', ' ', 'X'] # 3, 6, 9
+drawBoard(board)
 print(isWinner(board, 'X'))
+
+def getBoardCopy(board):
+    # Make a copy of the board list and return it.
+    return [i for i in board]
+board = [' ', 'X', ' ', 'X', ' ', 'O', 'X', 'O', ' ', 'X']
+print(getBoardCopy(board) is board)
+
+def isSpaceFree(board, move):
+    # Return True if the passed move is free on the passed board.
+    return board[move] == ' '
+def getPlayerMove():
+    # Let the player enter their move.
+    move = ' '
+    while move not in '1 2 3 4 5 6 7 8 9'.split() or not isSpaceFree(board, int(move)):
+        print('what is your next move? (1-9)')
+        move = input()
+    return int(move)
+def chooseRandomMoveFromList(board, movesList):
+        # Returns a valid move from the passed list on the passed board.
+        # Returns None if there is no valid move.
+        possibleMoves = []
+        for i in movesList:
+            if isSpaceFree(board, i):
+                possibleMoves.append(i)
+        if len(possibleMoves) != 0:
+            return random.choice(possibleMoves)
+        return None
+def getComputerMove(board, computerLetter):
+    # Given a board and the computer's letter, determine where to move and return that move.
+    if computerLetter == 'X':
+        playerLetter = 'O'
+    else:
+        playerLetter = 'X'
+
+    # Here is the algorithm for our Tic-Tac-Toe AI:
+    # First, check if we can win in the next move.
+    for i in range(1, 10):
+        boardCopy = getBoardCopy(board)
+        if isSpaceFree(boardCopy, i):
+            makeMove(boardCopy, computerLetter, i)
+            if isWinner(boardCopy, computerLetter):
+                return i
+    # Check if the player could win on their next move and block
+    for i in range(1, 10):
+        boardCopy = getBoardCopy(board)
+        if isSpaceFree(boardCopy, i):
+            makeMove(boardCopy, playerLetter, i)
+            if isWinner(boardCopy, playerLetter):
+                return i
+    # Try to take one of the corners, if they are free.
+
+    move = chooseRandomMoveFromList(board, [1, 3, 7, 9])
+    if move != None:
+        return move
+    # Try to take the center, if it is free.
+    if isSpaceFree(board, 5):
+        return 5
+    # Move on one of the sides.
+    return chooseRandomMoveFromList(board, [2, 4, 6, 8])
+def isBoardFull(board):
+    # Return True if every space on the board has been taken. Otherwise, return False.
+    for i in range(1, 10):
+        if isSpaceFree(board, i):
+            return False
+        return True
