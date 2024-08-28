@@ -24,10 +24,8 @@ def whoGoesFirst():
     return 'player'
 def makeMove(board, letter, move):
     board[move] = letter
-    print('This is the board')
-    return drawBoard(board)
-board = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
-print(makeMove(board, 'O', 1))
+# board = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
+# print(makeMove(board, 'O', 1))
 
 def isWinner(bo, le):
     """
@@ -35,42 +33,42 @@ def isWinner(bo, le):
         We use "bo" instead of "board" and "le" instead of "letter" so we don't have to type as much.
     """
     return (bo[7] == le and bo[8] == le and bo[9] == le) or (bo[4] == le and bo[5] == le and bo[6] == le) or (bo[1] == le and bo[2] == le and bo[3] == le) or (bo[7] == le and bo[4] == le and bo[1] == le) or (bo[8] == le and bo[5] == le and bo[2] == le) or (bo[9] == le and bo[6] == le and bo[3] == le) or (bo[1] == le and bo[5] == le and bo[9] == le) or (bo[3] == le and bo[5] == le and bo[7] == le)
-print('Check is winner function logic')
-board = [' ', 'X', ' ', 'O', ' ', 'X', ' ', 'O', ' ', 'X'] # 1, 7, 9
-drawBoard(board)
-print(isWinner(board, 'X'))
-board = [' ', 'X', ' ', 'O', ' ', 'O', ' ', 'O', ' ', 'X'] # 3, 5, 7
-drawBoard(board)
-print(isWinner(board, 'O'))
-board = [' ', 'X', 'X', 'X', 'O', ' ', ' ', 'O', ' ', 'X'] # 1, 2, 3
-drawBoard(board)
-print(isWinner(board, 'X'))
-board = [' ', 'X', ' ', 'O', 'O', 'O', 'O', 'X', ' ', 'X'] # 4, 5, 6
-drawBoard(board)
-print(isWinner(board, 'O'))
-board = [' ', 'X', ' ', 'O', ' ', 'X', ' ', 'X', 'X ', 'X'] # 7, 8, 9
-drawBoard(board)
-print(isWinner(board, 'X'))
-board = [' ', 'X', ' ', 'O', 'X', 'O', ' ', 'X', ' ', 'X'] # 1, 4, 7
-drawBoard(board)
-print(isWinner(board, 'X'))
-board = [' ', 'X', 'O', 'X', ' ', 'O', ' ', 'O', 'O', 'X'] # 2, 5, 8
-drawBoard(board)
-print(isWinner(board, 'O'))
-board = [' ', 'X', ' ', 'X', ' ', 'O', 'X', 'O', ' ', 'X'] # 3, 6, 9
-drawBoard(board)
-print(isWinner(board, 'X'))
+# print('Check is winner function logic')
+# board = [' ', 'X', ' ', 'O', ' ', 'X', ' ', 'O', ' ', 'X'] # 1, 7, 9
+# drawBoard(board)
+# print(isWinner(board, 'X'))
+# board = [' ', 'X', ' ', 'O', ' ', 'O', ' ', 'O', ' ', 'X'] # 3, 5, 7
+# drawBoard(board)
+# print(isWinner(board, 'O'))
+# board = [' ', 'X', 'X', 'X', 'O', ' ', ' ', 'O', ' ', 'X'] # 1, 2, 3
+# drawBoard(board)
+# print(isWinner(board, 'X'))
+# board = [' ', 'X', ' ', 'O', 'O', 'O', 'O', 'X', ' ', 'X'] # 4, 5, 6
+# drawBoard(board)
+# print(isWinner(board, 'O'))
+# board = [' ', 'X', ' ', 'O', ' ', 'X', ' ', 'X', 'X ', 'X'] # 7, 8, 9
+# drawBoard(board)
+# print(isWinner(board, 'X'))
+# board = [' ', 'X', ' ', 'O', 'X', 'O', ' ', 'X', ' ', 'X'] # 1, 4, 7
+# drawBoard(board)
+# print(isWinner(board, 'X'))
+# board = [' ', 'X', 'O', 'X', ' ', 'O', ' ', 'O', 'O', 'X'] # 2, 5, 8
+# drawBoard(board)
+# print(isWinner(board, 'O'))
+# board = [' ', 'X', ' ', 'X', ' ', 'O', 'X', 'O', ' ', 'X'] # 3, 6, 9
+# drawBoard(board)
+# print(isWinner(board, 'X'))
 
 def getBoardCopy(board):
     # Make a copy of the board list and return it.
     return [i for i in board]
-board = [' ', 'X', ' ', 'X', ' ', 'O', 'X', 'O', ' ', 'X']
-print(getBoardCopy(board) is board)
+# board = [' ', 'X', ' ', 'X', ' ', 'O', 'X', 'O', ' ', 'X']
+# print(getBoardCopy(board) is board)
 
 def isSpaceFree(board, move):
     # Return True if the passed move is free on the passed board.
     return board[move] == ' '
-def getPlayerMove():
+def getPlayerMove(board):
     # Let the player enter their move.
     move = ' '
     while move not in '1 2 3 4 5 6 7 8 9'.split() or not isSpaceFree(board, int(move)):
@@ -125,3 +123,27 @@ def isBoardFull(board):
         if isSpaceFree(board, i):
             return False
         return True
+
+print('Welcome to Tic-Tac-Toe!')
+while True:
+    # Reset the board
+    theBoard = [' '] * 10
+    playerLetter, computerLetter = inputPlayerLetter()
+    turn = whoGoesFirst()
+    print('The ' + turn + ' will go first.')
+    gameIsPlaying = True
+    while gameIsPlaying:
+        if turn == 'player':
+            # Player's turn
+            drawBoard(theBoard)
+            move = getPlayerMove(theBoard)
+            makeMove(theBoard, playerLetter, move)
+            if isWinner(theBoard, playerLetter):
+                    drawBoard(theBoard)
+                    print('Hooray! You have won the game!')
+                    gameIsPlaying = False
+            else:
+                if isBoardFull(theBoard):
+                    drawBoard(theBoard)
+                    print('The game is a tie!')
+                    break
