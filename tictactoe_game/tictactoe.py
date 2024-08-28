@@ -1,3 +1,4 @@
+import random
 def drawBoard(board):
     print(board[7] + '|' + board[8] + '|' + board[9])
     print('-+-+-')
@@ -16,3 +17,14 @@ def inputPlayerLetter():
     if letter == 'X':
         return ['X', 'O']
     return ['O', 'X']
+def whoGoesFirst():
+    # randomly choose who goes first
+    if random.randint(0, 1) == 0:
+        return 'computer'
+    return 'player'
+def makeMove(board, letter, move):
+    board[move] = letter
+    print('This is the board')
+    return drawBoard(board)
+board = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
+print(makeMove(board, 'O', 1))
