@@ -28,3 +28,26 @@ def makeMove(board, letter, move):
     return drawBoard(board)
 board = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
 print(makeMove(board, 'O', 1))
+
+def isWinner(bo, le):
+    """
+        Given a board and a player's letter, this function returns True if that player has won.
+        We use "bo" instead of "board" and "le" instead of "letter" so we don't have to type as much.
+    """
+    return (bo[7] == le and bo[8] == le and bo[9] == le) or (bo[4] == le and bo[5] == le and bo[6] == le) or (bo[1] == le and bo[2] == le and bo[3] == le) or (bo[7] == le and bo[4] == le and bo[1] == le) or (bo[8] == le and bo[5] == le and bo[2] == le) or (bo[9] == le and bo[6] == le and bo[3] == le) or (bo[1] == le and bo[5] == le and bo[9] == le) or (bo[3] == le and bo[5] == le and bo[7] == le)
+board = [' ', 'X', ' ', 'O', ' ', 'X', ' ', 'O', ' ', 'X'] # 1, 7, 9
+print(isWinner(board, 'X'))
+board = [' ', 'X', ' ', 'O', ' ', 'O', ' ', 'O', ' ', 'X'] # 3, 5, 7
+print(isWinner(board, 'O'))
+board = [' ', 'X', 'X', 'X', 'O', ' ', ' ', 'O', ' ', 'X'] # 1, 2, 3
+print(isWinner(board, 'X'))
+board = [' ', 'X', ' ', 'O', 'O', 'O', 'O', 'X', ' ', 'X'] # 4, 5, 6
+print(isWinner(board, 'O'))
+board = [' ', 'X', ' ', 'O', ' ', 'X', ' ', 'X', 'X ', 'X'] # 7, 8, 9
+print(isWinner(board, 'X'))
+board = [' ', 'X', ' ', 'O', 'X', 'O', ' ', 'X', ' ', 'X'] # 1, 4, 7
+print(isWinner(board, 'X'))
+board = [' ', 'X', 'O', 'X', ' ', 'O', ' ', 'O', 'O', 'X'] # 2, 5, 8
+print(isWinner(board, 'O'))
+board = [' ', 'X', ' ', 'X', ' ', 'O', 'X', 'O', ' ', 'X'] # 3, 6, 9
+print(isWinner(board, 'X'))
