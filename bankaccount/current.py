@@ -5,3 +5,4 @@ customer1 = Customer('Helen Smith', '76 The Warren , Blandings , Sussex', '1976-
 account1 = BankAccount(customer1 , 21457288, 1000)
 print(account1.customer.get_age())
 print(account1.customer.address)
+
