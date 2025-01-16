@@ -45,6 +45,14 @@ def isSpaceFree(board, move):
 
 def getPlayerMove(board):
     move = ' '
-    while move not in '1, 2, 3, 4, 5, 6, 7, 8, 9' or not isSpaceFree(board, int(move)):
+    while move not in '1, 2, 3, 4, 5, 6, 7, 8, 9'.split() or not isSpaceFree(board, int(move)):
         move = input()
     return int(move)
+def chooseRandomMoveFromList(board, movesList):
+    possibleMove = []
+    for move in movesList:
+        if isSpaceFree(board, move):
+            possibleMove.append(move)
+    if len(possibleMove) != 0:
+        return random.choice(possibleMove)
+    return None
