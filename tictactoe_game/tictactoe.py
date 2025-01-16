@@ -15,4 +15,22 @@ def inputPlayerLetter():
         return ['X', 'O']
     else:
         return ['O', 'X']
-print(inputPlayerLetter())
+# print(inputPlayerLetter())
+
+def whoGoesFirst():
+    if random.randint(0, 1) == 0:
+        return 'computer'
+    return 'player'
+
+def makeMove(board, letter, move):
+    board[move] = letter
+    print(drawBoard(board))
+    return board
+player, computer = inputPlayerLetter()
+board = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
+result = makeMove(board, player, 1)
+print(makeMove(board, player, 1))
+
+def isWinner(bo,le):
+    return ((bo[1] == le and bo[2] == le and bo[3] == le) or (bo[4] == le and bo[5] == le and bo[6] == le) or (bo[7] == le and bo[8] == le and bo[9] == le) or (bo[1] == le and bo[4] == le and bo[7] == le) or (bo[2] == le and bo[5] == le and bo[8] == le) or (bo[3] == le and bo[6] == le and bo[9] == le) or (bo[1] == le and bo[5] == le and bo[9] == le) or (bo[3] == le and bo[5] == le and bo[7] == le))
+print(isWinner(result, player))
