@@ -56,3 +56,19 @@ def chooseRandomMoveFromList(board, movesList):
     if len(possibleMove) != 0:
         return random.choice(possibleMove)
     return None
+def getComputerMove(board, computerLetter):
+    if computerLetter == 'X':
+        playerLetter = 'O'
+    else:
+        playerLetter = 'X'
+    for i in range(1, 10):
+        boardCopy = getBoardCopy(board)
+        if isSpaceFree(boardCopy, i):
+            makeMove(boardCopy, computerLetter, i)
+            if isWinner(boardCopy, computerLetter):
+                return i
+    for i in range(1, 10):
+        boardCopy = getBoardCopy(board)
+        if isSpaceFree(boardCopy, i):
+            if isWinner(boardCopy, playerLetter):
+                return i
