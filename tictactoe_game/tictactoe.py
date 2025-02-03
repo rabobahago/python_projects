@@ -118,6 +118,7 @@ while True:
             # Computer’s turn
 
             if turn == 'computer':
+
                 move = getComputerMove(theBoard, computerLetter)
                 makeMove(theBoard, computerLetter, move)
                 if isWinner(theBoard, computerLetter):
